@@ -1,0 +1,64 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class SelectableImage : MonoBehaviour
+{
+    [SerializeField] private Outline outline;  // 或者边框Image
+    [SerializeField] private Color highlightColor = Color.yellow;
+    [SerializeField] private float blinkSpeed = 2f;
+
+    private Coroutine blinkCoroutine;
+    public bool IsSelected { get; private set; }
+
+    void Awake()
+    {
+        if (outline == null)
+            outline = GetComponent<Outline>();
+
+        outline.enabled = false;
+        ImageSelectionManager.Instance.RegisterImage(this);
+
+    }
+
+    public void OnClick()
+    {
+        // 通知管理器，当前被点击
+        ImageSelectionManager.Instance.SelectImage(this);
+    }
+
+    public void SetSelected(bool selected)
+    {
+        IsSelected = selected;
+
+        if (selected)
+        {
+            outline.enabled = true;
+            if (blinkCoroutine == null)
+                blinkCoroutine = StartCoroutine(BlinkOutline());
+        }
+        else
+        {
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+            }
+            outline.enabled = false;
+        }
+    }
+
+    private IEnumerator BlinkOutline()
+    {
+        float t = 0;
+        while (true)
+        {
+            t += Time.deltaTime * blinkSpeed;
+            float alpha = (Mathf.Sin(t * Mathf.PI) + 1) / 2;
+            Color c = highlightColor;
+            c.a = alpha;
+            outline.effectColor = c;
+            yield return null;
+        }
+    }
+}
