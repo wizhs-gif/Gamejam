@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ImageSelectionManager : MonoBehaviour
 {
@@ -26,5 +27,10 @@ public class ImageSelectionManager : MonoBehaviour
 
         currentSelected = selected;
         currentSelected.SetSelected(true);
+    }
+
+    public void currentSelectedScene()
+    {
+        SceneManager.LoadScene(currentSelected.sceneName);
     }
 }

@@ -7,6 +7,7 @@ public class SelectableImage : MonoBehaviour
     [SerializeField] private Outline outline;  // ªÚ’ﬂ±ﬂøÚImage
     [SerializeField] private Color highlightColor = Color.yellow;
     [SerializeField] private float blinkSpeed = 2f;
+    public string sceneName;
 
     private Coroutine blinkCoroutine;
     public bool IsSelected { get; private set; }
@@ -17,7 +18,7 @@ public class SelectableImage : MonoBehaviour
             outline = GetComponent<Outline>();
 
         outline.enabled = false;
-        ImageSelectionManager.Instance.RegisterImage(this);
+        
 
     }
 
@@ -60,5 +61,10 @@ public class SelectableImage : MonoBehaviour
             outline.effectColor = c;
             yield return null;
         }
+    }
+
+    void Start()
+    {
+        ImageSelectionManager.Instance.RegisterImage(this);
     }
 }
