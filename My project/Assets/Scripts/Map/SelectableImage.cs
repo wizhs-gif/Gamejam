@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SelectableImage : MonoBehaviour
 {
-    [SerializeField] private Outline outline;  // 或者边框Image
+    [SerializeField] private Outline outline;  
     [SerializeField] private Color highlightColor = Color.yellow;
     [SerializeField] private float blinkSpeed = 2f;
     public string sceneName;
@@ -24,7 +24,7 @@ public class SelectableImage : MonoBehaviour
 
     public void OnClick()
     {
-        // 通知管理器，当前被点击
+        
         ImageSelectionManager.Instance.SelectImage(this);
     }
 
@@ -66,5 +66,6 @@ public class SelectableImage : MonoBehaviour
     void Start()
     {
         ImageSelectionManager.Instance.RegisterImage(this);
+        Debug.Log("SelectableImage Start");
     }
 }
