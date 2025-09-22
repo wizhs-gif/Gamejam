@@ -9,7 +9,7 @@ public class Item : ScriptableObject
  {
         public string itemName;
         public Sprite icon;
-        public int price; // 购买或出售价格
-        public bool isStackable; // 是否可堆叠
+        public int price; 
+        public bool isStackable; 
     
 }

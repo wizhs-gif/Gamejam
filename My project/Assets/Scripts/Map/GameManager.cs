@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
 #if UNITY_EDITOR
-        // 在编辑器里调试时直接停止播放
+       
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }

@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // 如果你想翻转角色
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     void Update()
     {
         // 获取左右输入（A/D 或 ←/→）
-        moveInput = Input.GetAxisRaw("Horizontal");  // -1 (左), 0, +1 (右)
+        moveInput = Input.GetAxisRaw("Horizontal");  
 
         // 翻转角色朝向
         if (spriteRenderer != null && moveInput != 0)

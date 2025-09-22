@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     public List<Item> shopItems = new List<Item>();
     
     [Header("UI")]
-    public UnityEngine.UI.Text goldText; // 显示玩家金币
+    public UnityEngine.UI.Text goldText; 
     public Transform itemContainer;
     public GameObject shopItemPrefab;
     private List<Item> currentShopItems = new List<Item>();
@@ -85,16 +85,16 @@ public class ShopManager : MonoBehaviour
         foreach (Transform child in itemContainer)
             Destroy(child.gameObject);
 
-        // 清空当前商店物品
+        
         currentShopItems.Clear();
 
-        // 随机抽 itemsPerRefresh 个不重复物品
+        
         List<Item> poolCopy = new List<Item>(shopItems);
         for (int i = 0; i < itemsPerRefresh && poolCopy.Count > 0; i++)
         {
             int index = Random.Range(0, poolCopy.Count);
             currentShopItems.Add(poolCopy[index]);
-            poolCopy.RemoveAt(index); // 防止重复
+            poolCopy.RemoveAt(index); 
         }
 
         // 显示到UI
