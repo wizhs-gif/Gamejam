@@ -12,6 +12,7 @@ public class BagManager : MonoBehaviour
     public PlayerResourses playerResourses = new PlayerResourses();
     [Header("UI")]
     public Image[] slots;
+    public Text goldText;
    
 
     void Awake()
@@ -67,6 +68,12 @@ public class BagManager : MonoBehaviour
                 slots[i].sprite = null;
                 slots[i].enabled = false; // 隐藏空格子
             }
+        }
+
+        // 刷新金币显示
+        if(goldText != null)
+        {
+            goldText.text = playerResourses.gold.ToString();
         }
     }
     

@@ -16,8 +16,11 @@ public class BagSolt : MonoBehaviour
     public void ClearItem(Item item)
     {
         currentItem = null;
-        icon = null;
-        icon.enabled = false;
+        if(icon != null)
+        {
+            icon.sprite = null;
+            icon.enabled = false;
+        }
     }
 
 }
