@@ -8,7 +8,6 @@ public class BagManager : MonoBehaviour
     public static BagManager  Instance;
     public List<Item> items = new List<Item>();
     public int capacity;
-
     public PlayerResourses playerResourses = new PlayerResourses();
     [Header("UI")]
     public Image[] slots;

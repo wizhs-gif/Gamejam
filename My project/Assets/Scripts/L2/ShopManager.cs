@@ -1,114 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public static ShopManager Instance;
-    public List<Item> shopItems = new List<Item>();
-    
-    [Header("UI")]
-    public UnityEngine.UI.Text goldText; 
-    public Transform itemContainer;
-    public GameObject shopItemPrefab;
-    private List<Item> currentShopItems = new List<Item>();
-    public int itemsPerRefresh = 10;
+    [Header("商店物品")]
+    public Item[] allItems;       // 可出售的所有物品
+    public int[] prices;          // 对应物品的价格（长度要和 allItems 一样）
 
+    [Header("UI 槽位")]
+    public ShopItemSlot[] slots;  // 拖进所有格子
 
     void Start()
     {
-        if(Instance == null)
+        UpdateShopUI();
+    }
+
+    /// <summary>
+    /// 刷新商店 UI，把物品和价格分配给每个格子
+    /// </summary>
+    public void UpdateShopUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
+            if (i < allItems.Length && allItems[i] != null)
+            {
+                int price = (i < prices.Length) ? prices[i] : 0; // 防止越界
+                slots[i].Setup(allItems[i], price);
+            }
+            else
+            {
+                slots[i].Clear();
+            }
         }
     }
 
-    private BagManager.PlayerResourses GetPlayerResourses()
+    /// <summary>
+    /// 外部调用：刷新商店
+    /// </summary>
+    public void RefreshShop()
     {
-        return BagManager.Instance.playerResourses;
-    }
-
-    public bool BuyItem(Item item)
-    {
-        var resources = GetPlayerResourses();
-        if(resources.gold >= item.price)
-        {
-            resources.gold -= item.price;
-            Debug.Log("购买成功");
-            // 添加到背包
-            BagManager.Instance.AddItem(item);
-            // 同步刷新
-            BagManager.Instance.UpdateUI();
-            UpdateShopUI();
-            return true;
-        }
-        else
-        {
-            Debug.Log("购买失败");
-            return false;
-
-        }
-        
-    }
-
-    public bool SellItem(Item item)
-    {
-        var resources = GetPlayerResourses();
-        if(BagManager.Instance.items.Contains(item))
-        {
-            BagManager.Instance.items.Remove(item);
-            resources.gold += item.price;
-            Debug.Log("出售成功");
-            BagManager.Instance.UpdateUI();
-            UpdateShopUI();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void UpdateShopUI()
-    {
-        var resources = GetPlayerResourses();
-        //UI更新功能
-        if(goldText != null)
-        {
-            goldText.text = resources.gold.ToString();
-        }
-        foreach (Transform child in itemContainer)
-            Destroy(child.gameObject);
-
-        
-        currentShopItems.Clear();
-
-        
-        List<Item> poolCopy = new List<Item>(shopItems);
-        for (int i = 0; i < itemsPerRefresh && poolCopy.Count > 0; i++)
-        {
-            int index = Random.Range(0, poolCopy.Count);
-            currentShopItems.Add(poolCopy[index]);
-            poolCopy.RemoveAt(index); 
-        }
-
-        // 显示到UI
-        foreach (var item in currentShopItems)
-        {
-            GameObject obj = Instantiate(shopItemPrefab, itemContainer);
-            obj.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
-            obj.transform.Find("Name").GetComponent<Text>().text = item.itemName;
-            obj.transform.Find("Price").GetComponent<Text>().text = item.price.ToString();
-
-            Button buyButton = obj.transform.Find("BuyButton").GetComponent<Button>();
-            buyButton.onClick.AddListener(() => BuyItem(item));
-        }
-
+        UpdateShopUI();
     }
 }
-

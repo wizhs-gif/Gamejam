@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float speed;
-    private float moveInput;
-
+    public float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        // 获取左右输入（A/D 或 ←/→）
-        moveInput = Input.GetAxisRaw("Horizontal");  
+        float moveX = Input.GetAxisRaw("Horizontal");
+        Vector2 movement = new Vector2(moveX, 0);
 
-        // 翻转角色朝向
-        if (spriteRenderer != null && moveInput != 0)
-        {
-            spriteRenderer.flipX = moveInput < 0;
-        }
+        rb.velocity = movement * moveSpeed;
+
+        // ✅ 动画控制
+        animator.SetBool("IsRun", Mathf.Abs(moveX) > 0.01f);
+
+        // ✅ 翻转角色
+        if (moveX > 0)
+            spriteRenderer.flipX = false; // 面向右
+        else if (moveX < 0)
+            spriteRenderer.flipX = true;  // 面向左
+        
     }
-
-    void FixedUpdate()
-    {
-        // 用 Rigidbody2D 移动角色
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-    }
-
+    
 }
