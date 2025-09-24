@@ -24,6 +24,9 @@ public class BagManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        // 确保游戏开始时背包为空
+        items.Clear();
     }
 
     void Start()
@@ -40,7 +43,7 @@ public class BagManager : MonoBehaviour
 
     public bool AddItem(Item item)
     {
-        if(items.Count <= capacity)
+        if(items.Count < capacity)
         {
             items.Add(item);
             UpdateUI();
@@ -50,6 +53,13 @@ public class BagManager : MonoBehaviour
             Debug.Log("背包已满");
             return false;
         }
+    }
+
+    // 主动清空背包（如在关卡开始/重置时调用）
+    public void ClearBag()
+    {
+        items.Clear();
+        UpdateUI();
     }
 
     public void UpdateUI()
