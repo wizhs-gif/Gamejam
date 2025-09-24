@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 84c2c0e941274e3408617a3138554a75, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1539,6 +1539,7 @@ MonoBehaviour:
   EndPanel: {fileID: 1392607789}
   yes: {fileID: 415043042}
   no: {fileID: 709474283}
+  NewGame: {fileID: 0}
 --- !u!1 &2113664375
 GameObject:
   m_ObjectHideFlags: 0
