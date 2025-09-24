@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject EndPanel;
     public Button yes;
     public Button no;
+    public Button NewGame;
     void Start()
     {
         StartButton.onClick.AddListener(GameStart);
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         EndPanel.SetActive(false);
         yes.onClick.AddListener(SureEnd);
         no.onClick.AddListener(RefuseEnd);
+
 
     }
 
@@ -52,4 +54,5 @@ public class GameManager : MonoBehaviour
         EndPanel.SetActive(false);
         Time.timeScale = 1f;
     }
+    
 }
