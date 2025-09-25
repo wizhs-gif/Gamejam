@@ -94,22 +94,117 @@ public class RoomDIsater : MonoBehaviour
 
     public void Smoggy()
     {
+<<<<<<< Updated upstream
+=======
+          //显示烟雾，玩家碰到烟雾受到伤害
+        // 烟雾预制体（需在Inspector中赋值）
+        public GameObject smokePrefab;
+    // 烟雾伤害间隔（秒）
+    public float smokeDamageInterval = 2f;
+
+>>>>>>> Stashed changes
         // 生成烟雾（假设在房间中心位置，可根据需要调整）
         if (smokePrefab != null)
         {
             GameObject smoke = Instantiate(smokePrefab, room.transform.position, Quaternion.identity);
+<<<<<<< Updated upstream
             // 设置烟雾父物体为房间，方便管理
             smoke.transform.parent = room.transform;
             // 添加碰撞器作为触发器
             SphereCollider collider = smoke.AddComponent<SphereCollider>();
             collider.isTrigger = true;
+=======
+    // 设置烟雾父物体为房间，方便管理
+    smoke.transform.parent = room.transform;
+            // 添加碰撞器作为触发器
+            SphereCollider collider = smoke.AddComponent<SphereCollider>();
+    collider.isTrigger = true;
+>>>>>>> Stashed changes
             collider.radius = 3f; // 烟雾影响范围
             
             // 添加烟雾伤害逻辑组件
             SmokeHarm smokeHarm = smoke.AddComponent<SmokeHarm>();
+<<<<<<< Updated upstream
             smokeHarm.Initialize(disaterDamage, smokeDamageInterval);
+=======
+    smokeHarm.Initialize(disaterDamage, smokeDamageInterval);
+>>>>>>> Stashed changes
         }
     }
+
+    // 烟雾伤害逻辑组件
+    public class SmokeHarm : MonoBehaviour
+{
+    private int damage;
+    private float interval;
+    private float lastDamageTime;
+    private bool isPlayerIn = false;
+    private GameObject player;
+
+    public void Initialize(int dmg, float intvl)
+    {
+        damage = dmg;
+        interval = intvl;
+        lastDamageTime = Time.time;
+    }
+
+    // 检测玩家进入烟雾
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerIn = true;
+            player = other.gameObject;
+            // 立即造成一次伤害
+            DealDamage();
+        }
+    }
+
+    // 检测玩家离开烟雾
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerIn = false;
+            player = null;
+        }
+    }
+
+    private void Update()
+    {
+        // 定时造成伤害
+        if (isPlayerIn && Time.time - lastDamageTime >= interval)
+        {
+            DealDamage();
+            lastDamageTime = Time.time;
+        }
+    }
+
+    // 对玩家造成伤害
+    private void DealDamage()
+    {
+        if (player != null)
+        {
+            PlayerHealth health = player.GetComponent<PlayerHealth>();
+            if (health != null)
+            {
+                health.TakeDamage(damage);
+            }
+        }
+    }
+}
+
+
+public class PlayerHealth : MonoBehaviour
+{
+    public int currentHealth;
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        // 处理玩家受伤逻辑
+    }
+    //显示烟雾，玩家碰到烟雾受到伤害
+}
 
     public void DamageContents(float probability)
     {
@@ -204,7 +299,11 @@ public class RoomDebuff : MonoBehaviour
             // 对房间内的每个内容物造成伤害（假设内容物有健康组件）
             foreach (var content in roomDisaster.contents)
             {
+<<<<<<< Updated upstream
                 PlayerHealth health = content.GetComponent<PlayerHealth>();
+=======
+                Health health = content.GetComponent<Health>();
+>>>>>>> Stashed changes
                 if (health != null)
                 {
                     health.TakeDamage(damagePerTick);
