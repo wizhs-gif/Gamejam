@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public bool canMove  = true;
 
+    public int PlayerHealth = 100;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
