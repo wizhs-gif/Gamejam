@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u6728\u8D28\u6750\u6599"
   icon: {fileID: -349196407, guid: 9cd3777503434f34fa638245a109a92c, type: 3}
-  price: 0
+  price: 30
   isStackable: 0

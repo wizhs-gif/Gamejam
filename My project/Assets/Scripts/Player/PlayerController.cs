@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    public bool canMove  = true;
 
     private void Awake()
     {
@@ -18,10 +19,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(!canMove){
+            return;
+        }
         float moveX = Input.GetAxisRaw("Horizontal");
-        Vector2 movement = new Vector2(moveX, 0);
-
-        rb.velocity = movement * moveSpeed;
+        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y);
 
         // ✅ 动画控制
         animator.SetBool("IsRun", Mathf.Abs(moveX) > 0.01f);

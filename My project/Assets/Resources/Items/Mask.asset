@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159f8dcf363f64648b4523297fd29eba, type: 3}
   m_Name: Mask
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
-  price: 0
+  itemName: "\u7845\u80F6\u9762\u7F69"
+  icon: {fileID: 1420938564, guid: 9cd3777503434f34fa638245a109a92c, type: 3}
+  price: 100
   isStackable: 0

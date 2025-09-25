@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159f8dcf363f64648b4523297fd29eba, type: 3}
-  m_Name: EasyTools
+  m_Name: "\u4FBF\u643A\u5DE5\u5177"
   m_EditorClassIdentifier: 
-  itemName: "\u7F16\u5199\u5DE5\u5177"
-  icon: {fileID: -383015524, guid: 9cd3777503434f34fa638245a109a92c, type: 3}
-  price: 0
+  itemName: "\u4FBF\u643A\u5DE5\u5177"
+  icon: {fileID: 1322863919, guid: 9cd3777503434f34fa638245a109a92c, type: 3}
+  price: 50
   isStackable: 0

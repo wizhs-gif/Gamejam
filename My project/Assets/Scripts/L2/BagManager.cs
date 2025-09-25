@@ -55,6 +55,21 @@ public class BagManager : MonoBehaviour
         }
     }
 
+    // 重载方法：通过物品名称添加物品
+    public bool AddItem(string itemName)
+    {
+        Item item = Resources.Load<Item>($"Items/{itemName}");
+        if (item != null)
+        {
+            return AddItem(item);
+        }
+        else
+        {
+            Debug.LogWarning($"找不到物品: {itemName}");
+            return false;
+        }
+    }
+
     // 主动清空背包（如在关卡开始/重置时调用）
     public void ClearBag()
     {
